@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
 import './App.css'
+import Bookshelf from './Bookshelf'
 
 class SearchBooks extends Component {
     state = {
@@ -15,9 +16,14 @@ class SearchBooks extends Component {
     }
 
     updateSearchResults = (query) => {
-        BooksAPI.search(query).then((books) => {
-            this.setState({ searchResults: books })
-        })
+        if (query) {
+            BooksAPI.search(query).then((books) => {
+                this.setState({ searchResults: books })
+            })
+        } else{
+            this.setState({ searchResults: []})
+        }
+        
     }
 
     render() {
@@ -37,12 +43,11 @@ class SearchBooks extends Component {
                         />
                     </div>
                 </div>
-                <div className="search-books-results">
-                    <ol className="books-grid">
-                        <div>
-                        </div>
-                    </ol>
-                </div>
+                {this.state.searchResults.length && (
+                   <div className="search-books-results">
+                        <Bookshelf books={this.state.searchResults} />
+                   </div>
+                )}
             </div>
         )
     }
