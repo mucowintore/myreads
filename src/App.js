@@ -8,33 +8,41 @@ import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends Component {
   state = {
-    books: []
+    books: [],
+    bookshelfs: ['currentlyReading', 'wantToRead', 'read'] 
   }
 
-  addBook = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(() => {
+  updateBook = (book, shelf) => {
       book.shelf = shelf
-      this.setState(state => {
-        books: this.state.books.concat([ book ])
-      })
-    })
+      // console.log(book, shelf)
+      // console.log(this.state.books.concat([ book ]))
+      this.setState(state => ({
+        books: (book.shelf) ? state.books.filter((b) => b.id != book.id).concat([ book ]) : state.books.concat([ book ])
+      }))
   }
 
-  
+    
 
   render() {
     return (
       <div className="app">
         <Route exact path='/' render={() => (
           <ListBooks 
-            listBooksTitle='My Reads'
-            books={this.state.books}
-            addBook={this.addBook}
+              title='My Reads'
+              books={this.state.books}
+              updateBook={this.updateBook}
+              bookshelfs={this.state.bookshelfs}
           />
         )}/>
-        <Route path='/search' component={SearchBooks} />
+        <Route path='/search' render={() => (
+          <SearchBooks
+            books={this.state.books}
+            updateBook={this.updateBook}
+          />
+        )}/>
       </div>
-  )}
+    )
+  }
 }
 
 export default BooksApp

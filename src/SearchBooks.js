@@ -3,8 +3,14 @@ import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
 import './App.css'
 import Bookshelf from './Bookshelf'
+import PropTypes from 'prop-types'
 
 class SearchBooks extends Component {
+    static PropTypes = {
+        books: PropTypes.array.isRequired,
+        updateBook: PropTypes.func.isRequired
+    }
+    
     state = {
         searchResults: [],
         searchQuery: ''
@@ -45,7 +51,7 @@ class SearchBooks extends Component {
                 </div>
                 {this.state.searchResults.length && (
                    <div className="search-books-results">
-                        <Bookshelf books={this.state.searchResults} />
+                        <Bookshelf books={this.state.searchResults} updateBook={this.props.updateBook} />
                    </div>
                 )}
             </div>

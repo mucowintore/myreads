@@ -1,20 +1,29 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class Book extends Component {
     /**
      * TODO Implement the <select> element as a controlled element 
      */
+
+    static propTypes = {
+        bookDetails: PropTypes.object.isRequired
+    }
     state = {
-        selected_value: ''
+        selected_value: 'none'
     }
 
     handleChange = (event) => {
         this.setState({selected_value: event.target.value})
+        if (event.target.value !== 'none') {
+            this.props.updateBook(this.props.bookDetails, event.target.value)
+        }
+        
     }
 
     render() {
         
-        const book = this.props.bookInfo
+        const book = this.props.bookDetails
         return (
             <div className="book">
                 <div className="book-top">

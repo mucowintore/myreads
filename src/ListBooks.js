@@ -6,22 +6,34 @@ import Bookshelf from './Bookshelf'
 
 class ListBooks extends Component {
     static propTypes = {
-        listBooksTitle: PropTypes.string.isRequired,
-        books: PropTypes.array.isRequired
+        title: PropTypes.string.isRequired,
+        books: PropTypes.array.isRequired,
+        bookshelfs: PropTypes.array.isRequired,
+        updateBook: PropTypes.func.isRequired
     }
 
     filterByShelf = (shelf) => {
+        console.log(shelf, this.props.books.filter(book => book.shelf === shelf))
         return this.props.books.filter(book => book.shelf === shelf)
     }
     
+    /**
+     * TODO Implement a toCamelCase function that takes a bookshelf title and
+     * turns it into an id
+     */
+
     render() {
         return (
             <div className="list-books">
                 <div className="list-books-title">
-                    <h1>{this.props.listBooksTitle}</h1>
+                    <h1>{this.props.title}</h1>
                 </div>
                 <div className="list-books-content">
-                    <div className="bookshelf">
+                    {this.props.bookshelfs.map(shelf =>
+                        <Bookshelf key={shelf} title={shelf} books={this.filterByShelf(shelf)} updateBook={this.props.updateBook} />
+                    )}
+
+                    {/* <div className="bookshelf">
                         <h2 className="bookshelf-title">Currently Reading</h2>
                         <div className="bookshelf-books">
                             <ol className="books-grid">
@@ -167,7 +179,7 @@ class ListBooks extends Component {
                             </li>
                             </ol>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             <div className="open-search">
                 <Link to='/search'>Add a book</Link>
