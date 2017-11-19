@@ -15,14 +15,10 @@ class Book extends Component {
 
     handleChange = (event) => {
         this.setState({selected_value: event.target.value})
-        if (event.target.value !== 'none') {
-            this.props.updateBook(this.props.bookDetails, event.target.value)
-        }
-        
+        this.props.updateBook(this.props.bookDetails, event.target.value)        
     }
 
     render() {
-        
         const book = this.props.bookDetails
         return (
             <div className="book">

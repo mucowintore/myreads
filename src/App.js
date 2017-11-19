@@ -9,7 +9,11 @@ import * as BooksAPI from './BooksAPI'
 class BooksApp extends Component {
   state = {
     books: [],
-    bookshelfs: ['currentlyReading', 'wantToRead', 'read'] 
+    bookshelfs: [
+      { title:'Currently Reading', id: 'currentlyReading'},
+      { title: 'Want to Read', id: 'wantToRead'}, 
+      { title: 'Read', id:'read'} 
+    ]
   }
 
   updateBook = (book, shelf) => {
@@ -20,8 +24,6 @@ class BooksApp extends Component {
         books: (book.shelf) ? state.books.filter((b) => b.id != book.id).concat([ book ]) : state.books.concat([ book ])
       }))
   }
-
-    
 
   render() {
     return (

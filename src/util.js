@@ -1,3 +1,0 @@
-toCamelcase = (str) => {
-    
-}

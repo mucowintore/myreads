@@ -29,8 +29,8 @@ class ListBooks extends Component {
                     <h1>{this.props.title}</h1>
                 </div>
                 <div className="list-books-content">
-                    {this.props.bookshelfs.map(shelf =>
-                        <Bookshelf key={shelf} title={shelf} books={this.filterByShelf(shelf)} updateBook={this.props.updateBook} />
+                    {this.props.bookshelfs.map((shelf, i) =>
+                        <Bookshelf key={i} title={shelf.title} id={shelf.id} books={this.filterByShelf(shelf.id)} updateBook={this.props.updateBook} />
                     )}
 
                     {/* <div className="bookshelf">
