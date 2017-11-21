@@ -10,7 +10,7 @@ class Book extends Component {
         bookDetails: PropTypes.object.isRequired
     }
     state = {
-        selected_value: 'none'
+        selected_value: (this.props.bookDetails.shelf) ? this.props.bookDetails.shelf : 'none'
     }
 
     handleChange = (event) => {

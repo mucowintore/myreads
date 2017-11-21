@@ -25,6 +25,11 @@ class BooksApp extends Component {
       }))
   }
 
+  getShelfInfo = (bookId) => {
+    const matchingBook = this.state.books.filter(book => book.id === bookId)
+    return (matchingBook.length) ? matchingBook[0].shelf : 'none'
+  }
+
   render() {
     return (
       <div className="app">
@@ -40,6 +45,7 @@ class BooksApp extends Component {
           <SearchBooks
             books={this.state.books}
             updateBook={this.updateBook}
+            getShelfInfo={this.getShelfInfo}
           />
         )}/>
       </div>
