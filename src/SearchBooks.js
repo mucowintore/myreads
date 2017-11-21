@@ -8,7 +8,8 @@ import PropTypes from 'prop-types'
 class SearchBooks extends Component {
     static PropTypes = {
         books: PropTypes.array.isRequired,
-        updateBook: PropTypes.func.isRequired
+        updateBook: PropTypes.func.isRequired,
+        getShelfInfo: PropTypes.func.isRequired
     }
     
     state = {
