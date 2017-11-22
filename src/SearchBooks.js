@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import * as BooksAPI from './BooksAPI'
 import { Link } from 'react-router-dom'
 import './App.css'
+import * as BooksAPI from './BooksAPI'
 import Bookshelf from './Bookshelf'
 import PropTypes from 'prop-types'
 
@@ -11,9 +11,9 @@ class SearchBooks extends Component {
         updateBook: PropTypes.func.isRequired,
         getShelfInfo: PropTypes.func.isRequired
     }
-    
+
     state = {
-        searchResults: [],
+        searchResults:[],
         searchQuery: ''
     }
 
@@ -25,16 +25,16 @@ class SearchBooks extends Component {
     updateSearchResults = (query) => {
         if (query) {
             BooksAPI.search(query).then((books) => {
-                books = books.map(book => {
+                const booksWithShelfData = books.map(book => {
                     book.shelf = this.props.getShelfInfo(book.id)
                     return book
                 })
-                this.setState({ searchResults: books })
+                this.setState({ searchResults: booksWithShelfData })
             })
         } else{
-            this.setState({ searchResults: []})
+            this.setState({ searchResults: [] })
         }
-        
+
     }
 
     render() {
@@ -43,7 +43,7 @@ class SearchBooks extends Component {
                 <div className="search-books-bar">
                     <Link className="close-search" to='/'>Close</Link>
                     <div className="search-books-input-wrapper">
-                        <input 
+                        <input
                             type="text"
                             placeholder="Search by title or author"
                             value={this.state.searchQuery}
@@ -56,13 +56,16 @@ class SearchBooks extends Component {
                 </div>
                 {this.state.searchResults.length && (
                    <div className="search-books-results">
-                        <Bookshelf books={this.state.searchResults} updateBook={this.props.updateBook} />
+                        <Bookshelf
+                          books={this.state.searchResults}
+                          updateBook={this.props.updateBook}
+                        />
                    </div>
                 )}
             </div>
         )
     }
-    
+
 }
 
 export default SearchBooks
