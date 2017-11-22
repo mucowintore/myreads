@@ -25,7 +25,11 @@ class SearchBooks extends Component {
     updateSearchResults = (query) => {
         if (query) {
             BooksAPI.search(query).then((books) => {
+<<<<<<< HEAD
                 const booksWithShelfData = books.map(book => {
+=======
+                booksWithShelfData = books.map(book => {
+>>>>>>> d56da6aa2a62ee05ea63ac8b89edf9a452c0e489
                     book.shelf = this.props.getShelfInfo(book.id)
                     return book
                 })
